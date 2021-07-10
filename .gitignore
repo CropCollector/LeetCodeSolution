@@ -6,3 +6,5 @@
 out/
 leetcode/editor/cn/doc/
 leetcode/editor/cn/*.md
+all.json
+translation.json
