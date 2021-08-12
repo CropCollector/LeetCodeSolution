@@ -1,5 +1,7 @@
 package leetcode.editor.cn;
 
+import com.sun.prism.es2.ES2Graphics;
+
 //Java：最长回文子串
 public class LongestPalindromicSubstring {
     public static void main(String[] args) {
@@ -11,39 +13,38 @@ public class LongestPalindromicSubstring {
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public String longestPalindrome(String s) {
-        int len = s.length();
-        int startIndex = 0, endIndex = 0;
-        boolean[][] dp = new boolean[len][len];
-        for (int i = 0; i < len; i++) {
+        int n = s.length();
+        boolean[][] dp = new boolean[n][n];
+        for (int i = 0; i < n; i++) {
             dp[i][i] = true;
         }
-        for (int i = 1; i < len; i++) {
-            for (int j = 0; j + i < s.length(); j++) {
-                int start = j, end = j + i;
-                if (i == 1) {
-                    if (s.charAt(start) == s.charAt(end)) {
-                        dp[start][end] = true;
-                        startIndex = start;
-                        endIndex = end;
-                    } else {
-                        dp[start][end] = false;
-                    }
-                } else {
-                    if (dp[start + 1][end - 1]) {
-                        if (s.charAt(start) == s.charAt(end)) {
-                            dp[start][end] = true;
-                            startIndex = start;
-                            endIndex = end;
-                        } else {
-                            dp[start][end] = false;
+        int max = 1, start = 0, end = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    if (j == i + 1) {
+                        dp[i][j] = true;
+                        if (max < 2) {
+                            start = i;
+                            end = j;
+                            max = 2;
                         }
                     } else {
-                        dp[start][end] = false;
+                        if (dp[i + 1][j - 1]) {
+                            dp[i][j] = true;
+                            if (max < j - i + 1) {
+                                start = i;
+                                end = j;
+                                max = j - i + 1;
+                            }
+                        }
                     }
+                } else {
+                    dp[i][j] = false;
                 }
             }
         }
-        return s.substring(startIndex, endIndex + 1);
+        return s.substring(start, end + 1);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
