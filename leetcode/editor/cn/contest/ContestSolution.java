@@ -1,5 +1,7 @@
 package leetcode.editor.cn.contest;
 
+import java.sql.Array;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class ContestSolution {
@@ -10,6 +12,9 @@ public class ContestSolution {
 
 class Solution {
 
+    public void numberOfWeakCharacters(int[][] properties) {
+
+    }
 }
 
 }
