@@ -1,7 +1,5 @@
 package leetcode.editor.cn;
 
-import com.sun.prism.es2.ES2Graphics;
-
 //Java：最长回文子串
 public class LongestPalindromicSubstring {
     public static void main(String[] args) {
