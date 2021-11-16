@@ -1,38 +1,29 @@
 package leetcode.editor.cn;
 
+import java.util.Arrays;
+
 //Java：最长递增子序列
 public class LongestIncreasingSubsequence {
     public static void main(String[] args) {
         Solution solution = new LongestIncreasingSubsequence().new Solution();
         // TO TEST
-        solution.lengthOfLIS(new int[]{0,1,0,3,2,3});
+        solution.lengthOfLIS(new int[]{10,9,2,5,3,7,101,18});
     }
     
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int[] d = new int[nums.length + 1];
-        int len = 1;
-        d[1] = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] > d[len]) {
-                len ++;
-                d[len] = nums[i];
-            } else {
-                int l = 1, r = len, pos = 0;
-                while (l <= r) {
-                    int mid = (l + r) >> 1;
-                    if (d[mid] < nums[i]) {
-                        pos = mid;
-                        l = mid + 1;
-                    } else {
-                        r = mid - 1;
-                    }
+        int n = nums.length;
+        int[] dp = new int[n];
+        for (int i = 0; i < n; i++) {
+            dp[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    dp[i] = Math.max(dp[j] + 1, dp[i]);
                 }
-                d[pos + 1] = nums[i];
             }
         }
-        return len;
+        return Arrays.stream(dp).max().getAsInt();
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -1,11 +1,9 @@
 package leetcode.editor.cn;
 
-import java.util.ArrayList;
-
-//Java：二叉搜索树中第K小的元素
-public class KthSmallestElementInABst {
+//Java：二叉树中的最大路径和
+public class BinaryTreeMaximumPathSum {
     public static void main(String[] args) {
-        Solution solution = new KthSmallestElementInABst().new Solution();
+        Solution solution = new BinaryTreeMaximumPathSum().new Solution();
         // TO TEST
     }
 
@@ -34,19 +32,21 @@ public class KthSmallestElementInABst {
     }
 
     class Solution {
-        public int kthSmallest(TreeNode root, int k) {
-            ArrayList<Integer> arr = new ArrayList<>();
-            ldr(root, arr);
-            return arr.get(k - 1);
+        int ans = Integer.MIN_VALUE;
+        public int maxPathSum(TreeNode root) {
+            dfs(root);
+            return ans;
         }
 
-        private void ldr(TreeNode node, ArrayList<Integer> arr) {
+        private int dfs(TreeNode node) {
             if (node == null) {
-                return;
+                return 0;
             }
-            ldr(node.left, arr);
-            arr.add(node.val);
-            ldr(node.right, arr);
+            int leftValue = Math.max(dfs(node.left), 0);
+            int rightValue = Math.max(dfs(node.right), 0);
+            int curValue = node.val + leftValue + rightValue;
+            ans = Math.max(ans, curValue);
+            return node.val + Math.max(leftValue, rightValue);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
