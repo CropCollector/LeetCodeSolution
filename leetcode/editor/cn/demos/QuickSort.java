@@ -2,6 +2,9 @@ package leetcode.editor.cn.demos;
 
 import leetcode.editor.cn.utils.ArraysUtils;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class QuickSort {
 
     public static void main(String[] args) {
@@ -10,25 +13,25 @@ public class QuickSort {
         ArraysUtils.print(arr);
     }
 
-    private static void quickSort(int[] arr, int l, int r) {
-        if (l >= r) {
+    private static void quickSort(int[] arr, int start, int end) {
+        if (start >= end) {
             return;
         }
-        int l1 = l, r1= r;
-        while (l1 < r1) {
-            while (arr[r1] >= arr[l] && l1 < r1) {
-                r1 --;
+        int l = start, r = end;
+        while (l < r) {
+            // 此处需添加等号，这两部旨在找到比基准arr[start]大/小的数，对于等于基准的数无需交换
+            // 且若不添加等号，l和r指向的数同时等于基准时会出现死循环
+            while (l < r && arr[r] >= arr[start]) {
+                r --;
             }
-            while (arr[l1] <= arr[l] && l1 < r1) {
-                l1 ++;
+            while (l < r && arr[l] <= arr[start]) {
+                l ++;
             }
-            if (l1 != r1) {
-                ArraysUtils.swap(arr, l1, r1);
-            }
+            ArraysUtils.swap(arr, r, l);
         }
-        ArraysUtils.swap(arr, l, l1);
-        quickSort(arr, l, l1 - 1);
-        quickSort(arr, l1 + 1, r);
+        ArraysUtils.swap(arr, start, l);
+        quickSort(arr, start, l - 1);
+        quickSort(arr, l + 1, end);
     }
 
 }
