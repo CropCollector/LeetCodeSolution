@@ -34,15 +34,16 @@ class Solution {
     }
     
     public int[] shuffle() {
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int i : arr) {
-            list.add(i);
-        }
-        for (int i = 0; i < arr.length; i++) {
-            int index = r.nextInt(list.size());
-            int num = list.get(index);
-            list.remove(index);
-            arr[i] = num;
+        /*
+         * fisher-yates洗牌算法
+         * 将数组划分为未打乱和已打乱的两部分，每次在未打乱的数组中随机取一个数放到已打乱的数组中
+         * 具体实现为从数据末尾遍历，从数组开头到当前遍历位置之中random一个数，然后和当前位置交换，（即此次操作后当前位置已被打乱，遍历过的数组即为已打乱的数组）
+         */
+        for (int i = arr.length - 1; i > 0; i --) {
+            int index = r.nextInt(i + 1);
+            int tmp = arr[index];
+            arr[index] = arr[i];
+            arr[i] = tmp;
         }
         return arr;
     }
